@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 
 
 class AuthLocalDataSourceImpl(
-    private val dataStoreManager:UserDataStoreManager
+    private val dataStoreManager: UserDataStoreManager
 ) : AuthLocalDataSource {
     override suspend fun saveUserData(userData: UserData) {
         dataStoreManager.saveUserData(userData)
