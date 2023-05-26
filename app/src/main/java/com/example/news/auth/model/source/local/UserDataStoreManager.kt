@@ -8,4 +8,5 @@ interface UserDataStoreManager {
     suspend fun resetUserData()
 
     suspend fun getUserDataStore(): Flow<Int?>
+
 }

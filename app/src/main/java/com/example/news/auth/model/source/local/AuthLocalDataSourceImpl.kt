@@ -1,5 +1,6 @@
 package com.example.news.auth.model.source.local
 
+import kotlinx.coroutines.flow.Flow
 
 
 class AuthLocalDataSourceImpl(
@@ -13,6 +14,6 @@ class AuthLocalDataSourceImpl(
         dataStoreManager.resetUserData()
     }
 
-    override suspend fun getUserDataStore() = dataStoreManager.getUserDataStore()
+    override suspend fun getUserDataStore(): Flow<Int?> = dataStoreManager.getUserDataStore()
 
 }

@@ -3,6 +3,7 @@ package com.example.news.auth.model.repository
 import com.example.news.auth.model.source.local.AuthLocalDataSource
 import com.example.news.auth.model.source.local.UserData
 import com.example.news.auth.model.source.remote.AuthWebservice
+import kotlinx.coroutines.flow.Flow
 
 class AuthRepositoryImpl(var authWebservice: AuthWebservice,
                          var authLocalDataSource: AuthLocalDataSource) : AuthRepository {
@@ -17,5 +18,9 @@ class AuthRepositoryImpl(var authWebservice: AuthWebservice,
     }
     override suspend fun logout() {
         authLocalDataSource.resetUserData()
+    }
+
+    override suspend fun getUserData(): Flow<Int?> {
+        return authLocalDataSource.getUserDataStore()
     }
 }
