@@ -3,7 +3,6 @@ package com.example.news.auth.model.source.remote
 import com.example.news.auth.model.source.remote.dto.SignupDto
 import retrofit2.http.Body
 import retrofit2.http.POST
-import retrofit2.http.Query
 
 interface AuthWebservice {
     companion object {
@@ -23,5 +22,5 @@ interface AuthWebservice {
         @Body password: String,
         @Body displayName: String,
         @Body returnSecureToken: Boolean = true,
-    ):SignupDto
+    ): SignupDto
 }
