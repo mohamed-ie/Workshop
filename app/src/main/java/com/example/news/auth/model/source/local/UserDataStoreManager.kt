@@ -1,7 +1,11 @@
 package com.example.news.auth.model.source.local
 
-interface AuthLocalDataSource {
+import kotlinx.coroutines.flow.Flow
+
+interface UserDataStoreManager {
     suspend fun saveUserData(userData: UserData)
+
     suspend fun resetUserData()
-    suspend fun getUserDataStore(): Any
+
+    suspend fun getUserDataStore(): Flow<Int?>
 }
