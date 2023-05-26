@@ -1,6 +1,27 @@
 package com.example.news.auth.model.source.remote
 
+import com.example.news.auth.model.source.remote.dto.SignupDto
+import retrofit2.http.Body
+import retrofit2.http.POST
+import retrofit2.http.Query
+
 interface AuthWebservice {
-    suspend fun login (email:String,  password:String)
-    suspend fun signup (email:String,  password:String, displayName: String)
+    companion object {
+        const val BASE_URL = "https://identitytoolkit.googleapis.com/v1/"
+    }
+
+    @POST("accounts:signInWithPassword")
+    suspend fun login(
+        @Body email: String,
+        @Body password: String,
+        @Body returnSecureToken: Boolean = true,
+    )
+
+    @POST("accounts:signUp")
+    suspend fun signup(
+        @Body email: String,
+        @Body password: String,
+        @Body displayName: String,
+        @Body returnSecureToken: Boolean = true,
+    ):SignupDto
 }
