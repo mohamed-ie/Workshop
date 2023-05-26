@@ -85,4 +85,7 @@ dependencies {
 
     //robolectric
     testImplementation "org.robolectric:robolectric:4.8"
+
+    //data store
+    implementation 'androidx.datastore:datastore-preferences:1.0.0'
 }
