@@ -1,6 +1,6 @@
 package com.example.news.auth.model.source.remote
 
-import com.example.news.auth.model.source.remote.dto.SignupDto
+import com.example.news.auth.model.source.remote.dto.AuthDto
 import retrofit2.http.Body
 import retrofit2.http.POST
 
@@ -14,7 +14,7 @@ interface AuthWebservice {
         @Body email: String,
         @Body password: String,
         @Body returnSecureToken: Boolean = true,
-    )
+    ) : AuthDto
 
     @POST("accounts:signUp")
     suspend fun signup(
@@ -22,5 +22,5 @@ interface AuthWebservice {
         @Body password: String,
         @Body displayName: String,
         @Body returnSecureToken: Boolean = true,
-    ): SignupDto
+    ): AuthDto
 }
