@@ -1,3 +1,20 @@
 package com.example.news.auth.model.repository
 
-class AuthRepositoryImpl : AuthRepository
+import com.example.news.auth.model.source.local.AuthLocalDataSource
+import com.example.news.auth.model.source.remote.AuthWebservice
+
+class AuthRepositoryImpl(var authWebservice: AuthWebservice,
+                         var authLocalDataSource: AuthLocalDataSource) : AuthRepository {
+    override suspend fun login(email: String, password: String) {
+        authWebservice.login(email, password)
+    }
+    override suspend fun signUp(email: String, password: String, displayName: String) {
+        authWebservice.signup(email, password, displayName)
+    }
+    override fun saveUserData(userID: Int, name: String, email: String) {
+      authLocalDataSource.saveUserData(userID, name, email)
+    }
+    override fun logout() {
+        authLocalDataSource.resetUserData()
+    }
+}
