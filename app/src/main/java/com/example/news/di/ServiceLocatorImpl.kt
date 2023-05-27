@@ -1,6 +1,7 @@
 package com.example.news.di
 
 import android.content.Context
+import android.net.ConnectivityManager
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
 import androidx.datastore.preferences.SharedPreferencesMigration
@@ -16,7 +17,6 @@ import com.example.news.auth.model.repository.AuthRepositoryImpl
 import com.example.news.auth.model.source.local.AuthLocalDataSourceImpl
 import com.example.news.auth.model.source.local.UserDataStoreManagerImpl
 import com.example.news.auth.model.source.remote.AuthRemoteDataSourceImpl
-import com.example.news.auth.model.source.remote.interceptor.AuthInterceptor
 import com.example.news.auth.model.source.remote.AuthWebservice
 import com.example.news.news.model.repository.NewsRepository
 import com.example.news.news.model.repository.NewsRepositoryImpl
@@ -27,6 +27,7 @@ import com.example.news.news.model.source.remote.NewsRemoteDataSource
 import com.example.news.news.model.source.remote.NewsRemoteDataSourceImpl
 import com.example.news.news.model.source.remote.NewsWebservice
 import com.example.news.news.model.source.remote.interceptor.NewsInterceptor
+import com.example.news.auth.model.source.remote.interceptor.AuthInterceptor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import okhttp3.OkHttpClient
@@ -89,4 +90,8 @@ class ServiceLocatorImpl(private val context: Context) : ServiceLocator {
             NewsDatabase.DATABASE_NAME
         ).build()
     }
+
+    override val connectivityManager: ConnectivityManager =
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
 }

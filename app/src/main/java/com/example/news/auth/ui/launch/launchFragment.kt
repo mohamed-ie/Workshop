@@ -21,17 +21,17 @@ import com.example.news.di.ServiceLocatorImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class LaunchFragment : BaseFragment<FragmentLaunchBinding,LaunchViewModel>(){
+class LaunchFragment : BaseFragment<FragmentLaunchBinding,LaunchViewModel>() {
+
     override val layoutRes: Int
         get() = R.layout.fragment_launch
     override val viewModelFactory: ViewModelProvider.Factory
         get() = object  :ViewModelProvider.Factory{
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 val app = requireActivity().application as NewsApp
-                return  LaunchViewModel(app.serviceLocator.authRepository) as T
+                return LaunchViewModel(app.serviceLocator.authRepository) as T
             }
         }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
