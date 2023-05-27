@@ -32,4 +32,8 @@ class FakeAuthRepository(private val users: MutableList<UserData> = mutableListO
     override suspend fun logout() {
 
     }
+
+    override suspend fun getUserData(): Flow<Int?> {
+        TODO("Not yet implemented")
+    }
 }
