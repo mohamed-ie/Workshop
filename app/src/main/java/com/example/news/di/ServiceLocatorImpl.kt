@@ -9,6 +9,8 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.datastore.preferences.preferencesDataStoreFile
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.example.news.BuildConfig
 import com.example.news.auth.model.repository.AuthRepository
 import com.example.news.auth.model.repository.AuthRepositoryImpl
@@ -17,6 +19,7 @@ import com.example.news.auth.model.source.local.UserDataStoreManagerImpl
 import com.example.news.auth.model.source.remote.AuthRemoteDataSourceImpl
 import com.example.news.auth.model.source.remote.interceptor.AuthInterceptor
 import com.example.news.auth.model.source.remote.AuthWebservice
+import com.example.news.news.model.source.local.NewsDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -46,7 +49,7 @@ class ServiceLocatorImpl(private val context: Context) : ServiceLocator {
             .addNetworkInterceptor(authInterceptor)
             .build()
 
-        val authWebservice :AuthWebservice = retrofitBuilder
+        val authWebservice: AuthWebservice = retrofitBuilder
             .client(client)
             .baseUrl(AuthWebservice.BASE_URL)
             .build()
@@ -54,10 +57,17 @@ class ServiceLocatorImpl(private val context: Context) : ServiceLocator {
 
 
         val remoteDataSource = AuthRemoteDataSourceImpl(authWebservice, Dispatchers.IO)
-        val localDataSource = AuthLocalDataSourceImpl(dataStoreManager = UserDataStoreManagerImpl(context.dataStore))
-        AuthRepositoryImpl(remoteDataSource,localDataSource,Dispatchers.Default)
+        val localDataSource =
+            AuthLocalDataSourceImpl(dataStoreManager = UserDataStoreManagerImpl(context.dataStore))
+        AuthRepositoryImpl(remoteDataSource, localDataSource, Dispatchers.Default)
     }
 
 
-
+    private val newsDatabase: NewsDatabase by lazy {
+        Room.databaseBuilder(
+            context,
+            NewsDatabase::class.java,
+            NewsDatabase.DATABASE_NAME
+        ).build()
+    }
 }
