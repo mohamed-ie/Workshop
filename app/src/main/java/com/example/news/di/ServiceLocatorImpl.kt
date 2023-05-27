@@ -18,10 +18,13 @@ import com.example.news.auth.model.source.local.UserDataStoreManagerImpl
 import com.example.news.auth.model.source.remote.AuthRemoteDataSourceImpl
 import com.example.news.auth.model.source.remote.interceptor.AuthInterceptor
 import com.example.news.auth.model.source.remote.AuthWebservice
-import com.example.news.auth.model.source.remote.interceptor.AuthInterceptor
 import com.example.news.news.model.repository.NewsRepository
 import com.example.news.news.model.repository.NewsRepositoryImpl
+import com.example.news.news.model.source.local.LocalNewsDataSource
+import com.example.news.news.model.source.local.LocalNewsDataSourceImpl
 import com.example.news.news.model.source.local.NewsDatabase
+import com.example.news.news.model.source.remote.NewsRemoteDataSource
+import com.example.news.news.model.source.remote.NewsRemoteDataSourceImpl
 import com.example.news.news.model.source.remote.NewsWebservice
 import com.example.news.news.model.source.remote.interceptor.NewsInterceptor
 import kotlinx.coroutines.Dispatchers
@@ -76,7 +79,7 @@ class ServiceLocatorImpl(private val context: Context) : ServiceLocator {
             .build()
             .create(NewsWebservice::class.java)
 
-        NewsRepositoryImpl()
+        NewsRepositoryImpl(NewsRemoteDataSourceImpl(newsWebservice),LocalNewsDataSourceImpl(newsDatabase.dao))
     }
 
     private val newsDatabase: NewsDatabase by lazy {

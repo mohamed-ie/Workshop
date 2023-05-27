@@ -13,9 +13,5 @@ interface NewsWebservice {
     @GET("top-headlines")
     suspend fun getTopHeadlines(
         @Query("country") country: String,
-        @Query("category") category: String,
-        @Query("query") query: String,
-        @Query("pageSize") pageSize: Byte,
-        @Query("page") page: Int
     ): NewsDTO
 }

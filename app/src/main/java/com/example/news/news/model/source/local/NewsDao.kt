@@ -1,6 +1,7 @@
 package com.example.news.news.model.source.local
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -18,5 +19,8 @@ interface NewsDao {
 
     @Query("SELECT * FROM article WHERE isCached = 1")
     fun getCached(): Flow<List<Article>>
+
+    @Delete
+    suspend fun deleteArticle(article: Article)
 
 }
