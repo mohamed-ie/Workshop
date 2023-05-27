@@ -1,25 +1,20 @@
 package com.example.news.di
 
 import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
-import androidx.datastore.preferences.SharedPreferencesMigration
-import androidx.datastore.preferences.core.PreferenceDataStoreFactory
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStore
-import androidx.datastore.preferences.preferencesDataStoreFile
 import com.example.news.BuildConfig
 import com.example.news.auth.model.repository.AuthRepository
 import com.example.news.auth.model.repository.AuthRepositoryImpl
 import com.example.news.auth.model.source.local.AuthLocalDataSourceImpl
 import com.example.news.auth.model.source.local.UserDataStoreManagerImpl
 import com.example.news.auth.model.source.remote.AuthRemoteDataSourceImpl
-import com.example.news.auth.model.source.remote.interceptor.AuthInterceptor
 import com.example.news.auth.model.source.remote.AuthWebservice
-import kotlinx.coroutines.CoroutineScope
+import com.example.news.auth.model.source.remote.interceptor.AuthInterceptor
+import com.example.news.news.model.repository.NewsRepository
+import com.example.news.news.model.repository.NewsRepositoryImpl
+import com.example.news.news.model.source.remote.NewsWebservice
+import com.example.news.news.model.source.remote.interceptor.NewsInterceptor
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -58,6 +53,20 @@ class ServiceLocatorImpl(private val context: Context) : ServiceLocator {
         AuthRepositoryImpl(remoteDataSource,localDataSource,Dispatchers.Default)
     }
 
+    override val newsRepository: NewsRepository by lazy {
+        val newsInterceptor = NewsInterceptor(BuildConfig.NEWS_API_KEY)
+        val client = OkHttpClient.Builder()
+            .addNetworkInterceptor(newsInterceptor)
+            .build()
+
+        val newsWebservice :NewsWebservice = retrofitBuilder
+            .client(client)
+            .baseUrl(NewsWebservice.BASE_URL)
+            .build()
+            .create(NewsWebservice::class.java)
+
+        NewsRepositoryImpl()
+    }
 
 
 }
