@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="article"
+            type="com.example.news.news.model.source.local.entitiy.Article" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,6 +14,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            imageUrl="@{article.urlToImage}"
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="140dp"
@@ -28,7 +31,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="@string/dumpy_newspaper"
+            android:text="@{article.title}"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="@+id/imageView" />
 
@@ -38,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
-            android:text="@string/dumpy_new_description"
+            android:text="@{article.description}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView4"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -48,7 +52,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="@string/dumpy_date"
+            android:text="@{article.publishedAt}"
             android:textColor="@color/registrationTextFieldCursorBackground"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="@+id/textView6"
