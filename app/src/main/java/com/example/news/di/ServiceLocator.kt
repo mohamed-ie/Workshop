@@ -1,9 +1,9 @@
 package com.example.news.di
 
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import com.example.news.auth.model.repository.AuthRepository
+import com.example.news.news.model.repository.NewsRepository
 
 interface ServiceLocator {
     val authRepository: AuthRepository
+    val newsRepository : NewsRepository
 }
