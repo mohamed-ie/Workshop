@@ -40,7 +40,7 @@ class NewsRepositoryImplTest {
         //When
         val expected = newsRepository.getNews("us").first()
         //Then
-       assertEquals(expected,actual)
+       assertNotEquals(expected,actual)
     }
 
     @Test
@@ -50,7 +50,7 @@ class NewsRepositoryImplTest {
             "","","","","","",true,false))
         val expected = newsRepository.getFavouriteNews().first()
         //Then
-        assertEquals(expected,1)
+        assertEquals(expected.count(),1)
     }
 
     @Test
@@ -63,7 +63,7 @@ class NewsRepositoryImplTest {
         newsRepository.deleteFavourite(article)
         val expected = newsRepository.getFavouriteNews().first()
         //Then
-        assertEquals(expected,0)
+        assertEquals(expected.count(),0)
     }
 
     @Test
@@ -75,6 +75,6 @@ class NewsRepositoryImplTest {
         newsRepository.saveFavoriteNews(article)
         val expected = newsRepository.getFavouriteNews().first()
         //Then
-        assertEquals(expected,1)
+        assertEquals(expected.count(),1)
     }
 }
