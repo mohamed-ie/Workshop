@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout"
+            android:id="@+id/search_bar_news"
             android:layout_width="0dp"
             android:layout_height="56dp"
             app:boxCornerRadiusBottomEnd="16dp"
@@ -51,19 +51,59 @@
                 android:textCursorDrawable="@color/registrationTextFieldCursorBackground" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_bar_news"
+            app:shimmer_repeat_mode="restart"
+            app:shimmer_shape="radial"
+            tools:ignore="MissingConstraints">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/shimmer_layout" />
+
+                <include layout="@layout/shimmer_layout" />
+
+                <include layout="@layout/shimmer_layout" />
+
+                <include layout="@layout/shimmer_layout" />
+
+                <include layout="@layout/shimmer_layout" />
+
+                <include layout="@layout/shimmer_layout" />
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="0dp"
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginEnd="1dp"
-            android:layout_marginBottom="1dp"
-            app:layout_constraintWidth_percent="0.9"
             android:layout_marginVertical="20dp"
+           android:layout_marginHorizontal="16dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/search_bar_news"
+            app:layout_constraintWidth_percent="0.9" />
+
+        <ImageView
+            android:id="@+id/no_connection"
+            android:layout_width="375dp"
+            android:layout_height="622dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/no_connection" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
