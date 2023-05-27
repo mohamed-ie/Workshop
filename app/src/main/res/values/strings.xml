@@ -12,4 +12,9 @@
     <string name="register_success">Register Success</string>
     <string name="login">Login</string>
     <string name="noAccount">Don\'t have account?</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="dumpy_newspaper">CNN</string>
+    <string name="dumpy_new_description">Why TikTok is taking months to delete personal US user data from servers outside its Project Texas firewalls, even as its political standing sours</string>
+    <string name="dumpy_date">Feb 26, 2023, 16.32 PM</string>
 </resources>

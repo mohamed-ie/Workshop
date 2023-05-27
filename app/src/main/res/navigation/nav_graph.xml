@@ -4,19 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/launchFragment">
-
-    <include app:graph="@navigation/auth_graph" />
     <fragment
         android:id="@+id/launchFragment"
-        android:name="com.example.news.auth.ui.launch.launchFragment"
-        android:label="fragment_launch"
-        tools:layout="@layout/fragment_launch" >
-        <action
-            android:id="@+id/action_launchFragment_to_home_graph"
-            app:destination="@id/home_graph" />
-        <action
-            android:id="@+id/action_launchFragment_to_auth_graph"
-            app:destination="@id/auth_graph" />
-    </fragment>
-    <include app:graph="@navigation/home_graph" />
+        android:name="com.example.news.auth.ui.launch.LaunchFragment"
+        android:label="LaunchFragment" />
 </navigation>
