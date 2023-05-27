@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -23,6 +24,10 @@ class FavoriteViewModel(private val newsRepository: NewsRepository) : ViewModel(
     val favorites = _favorites.asStateFlow()
 
     init {
+        allFavorites.onEach {
+            _favorites.update { it }
+        }.launchIn(viewModelScope)
+
         searchQuery.onEach {
             _favorites.update {
                 allFavorites.first().filter { it.title.contains(searchQuery.value, true) }

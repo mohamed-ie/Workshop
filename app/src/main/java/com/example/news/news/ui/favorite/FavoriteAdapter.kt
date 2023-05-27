@@ -15,8 +15,8 @@ class FavoriteAdapter(
 
     var articles: List<Article> = listOf()
         set(value) {
-            notifyDataSetChanged()
             field = value
+            notifyDataSetChanged()
         }
 
 

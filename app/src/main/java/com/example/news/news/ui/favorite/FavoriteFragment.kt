@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -26,6 +27,7 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
         }
     }
 
+    private val newsViewModel :NewsViewModel by viewModels()
     private val favoriteAdapter: FavoriteAdapter = FavoriteAdapter(viewModel::deleteArticle)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
