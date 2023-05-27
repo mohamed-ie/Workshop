@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        
+
         <variable
             name="viewModel"
             type="com.example.news.auth.ui.registration.RegistrationViewModel" />
@@ -27,14 +27,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.86" />
+            app:layout_constraintGuide_percent="0.9" />
 
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout2"
             android:layout_width="0dp"
-            android:layout_height="55dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
+            android:error="@{viewModel.emailError}"
+            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusTopStart="16dp"
+            app:errorTextColor="?attr/colorError"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
@@ -45,21 +51,24 @@
                 android:id="@+id/emailTextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/register_edit_text_background"
                 android:ems="10"
                 android:hint="@string/email_text"
-                android:paddingStart="50dp"
-                android:textCursorDrawable="@color/registrationTextFieldCursorBackground"
-                tools:ignore="RtlSymmetry" />
+                android:text="@={viewModel.email}"
+                android:textCursorDrawable="@color/registrationTextFieldCursorBackground" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
             android:layout_width="0dp"
-            android:layout_height="55dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="176dp"
+            android:error="@{viewModel.displayNameError}"
+            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusTopStart="16dp"
+            app:errorTextColor="?attr/colorError"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toBottomOf="@+id/textView"
             app:startIconDrawable="@drawable/person">
@@ -68,20 +77,24 @@
                 android:id="@+id/nameTextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/register_edit_text_background"
                 android:ems="10"
                 android:hint="@string/display_name"
-                android:paddingStart="50dp"
-                android:textCursorDrawable="@color/registrationTextFieldCursorBackground"
-                tools:ignore="RtlSymmetry" />
+                android:text="@={viewModel.displayName}"
+                android:textCursorDrawable="@color/registrationTextFieldCursorBackground" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout3"
             android:layout_width="0dp"
-            android:layout_height="55dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:error="@{viewModel.passwordError}"
+            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusTopStart="16dp"
             app:endIconMode="password_toggle"
+            app:errorTextColor="?attr/colorError"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
@@ -92,13 +105,11 @@
                 android:id="@+id/passwordTextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/register_edit_text_background"
                 android:ems="10"
                 android:hint="@string/password"
                 android:inputType="textPassword"
-                android:paddingStart="50dp"
-                android:textCursorDrawable="@color/registrationTextFieldCursorBackground"
-                tools:ignore="RtlSymmetry" />
+                android:text="@={viewModel.password}"
+                android:textCursorDrawable="@color/registrationTextFieldCursorBackground" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -108,9 +119,7 @@
             android:text="@string/registerText"
             android:textColor="@color/black"
             android:textSize="30sp"
-
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
-            app:layout_constraintHorizontal_bias="0.536"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
@@ -129,6 +138,7 @@
             android:layout_marginTop="135dp"
             android:layout_marginEnd="30dp"
             android:backgroundTint="@color/black"
+            android:onClick="@{()-> viewModel.register()}"
             android:text="@string/register"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
@@ -141,10 +151,14 @@
             android:layout_marginTop="77dp"
             android:layout_marginBottom="81dp"
             android:gravity="center"
+            android:text="@{viewModel.remoteError}"
+            android:textColor="?attr/colorError"
+            android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:text="@string/email_text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

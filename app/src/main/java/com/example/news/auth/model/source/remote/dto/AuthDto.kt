@@ -1,11 +1,11 @@
 package com.example.news.auth.model.source.remote.dto
 
 data class AuthDto(
-    val idToken: String?,
-    val email: String?,
-    val refreshToken: String?,
-    val expiresIn: String?,
-    val displayName: String?,
-    val message: AuthErrorDto?,
-    val registered: Boolean?
+    val idToken: String? = null,
+    val email: String? = null ,
+    val refreshToken: String? = null,
+    val expiresIn: String? = null,
+    val displayName: String? = null,
+    val error: AuthErrorDto? = null ,
+    val registered: Boolean? = null
 )

@@ -1,7 +1,14 @@
 package com.example.news.di
 
 import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
+import androidx.datastore.preferences.SharedPreferencesMigration
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.datastore.preferences.preferencesDataStoreFile
 import com.example.news.BuildConfig
 import com.example.news.auth.model.repository.AuthRepository
 import com.example.news.auth.model.repository.AuthRepositoryImpl
@@ -44,22 +51,11 @@ class ServiceLocatorImpl(private val context: Context) : ServiceLocator {
             .baseUrl(AuthWebservice.BASE_URL)
             .build()
             .create(AuthWebservice::class.java)
-        AuthRepositoryImpl(authWebservice,AuthLocalDataSourceImpl(UserDataStoreManagerImpl(dataStore = context.dataStore)))
-    }
 
-    override val newsRepository: NewsRepository by lazy {
-        val newsInterceptor = NewsInterceptor(BuildConfig.NEWS_API_KEY)
-        val client = OkHttpClient.Builder()
-            .addNetworkInterceptor(newsInterceptor)
-            .build()
 
-        val newsWebservice :NewsWebservice = retrofitBuilder
-            .client(client)
-            .baseUrl(NewsWebservice.BASE_URL)
-            .build()
-            .create(NewsWebservice::class.java)
-
-        NewsRepositoryImpl()
+        val remoteDataSource = AuthRemoteDataSourceImpl(authWebservice, Dispatchers.IO)
+        val localDataSource = AuthLocalDataSourceImpl(dataStoreManager = UserDataStoreManagerImpl(context.dataStore))
+        AuthRepositoryImpl(remoteDataSource,localDataSource,Dispatchers.Default)
     }
 
 
