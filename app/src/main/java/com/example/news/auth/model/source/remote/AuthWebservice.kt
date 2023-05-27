@@ -1,5 +1,6 @@
 package com.example.news.auth.model.source.remote
 
+import com.example.news.auth.model.source.remote.body.SignInBody
 import com.example.news.auth.model.source.remote.body.SignupBody
 import com.example.news.auth.model.source.remote.dto.AuthDto
 import retrofit2.http.Body
@@ -11,17 +12,15 @@ import retrofit2.http.Part
 
 interface AuthWebservice {
     companion object {
-        const val BASE_URL = "https://identitytoolkit.googleapis.com/v1/"
+        const val BASE_URL = "https://identitytoolkit.googleapis.com/"
     }
 
-    @POST("accounts:signInWithPassword")
+    @POST("/v1/accounts:signInWithPassword")
     suspend fun login(
-        @Body email: String,
-        @Body password: String,
-        @Body returnSecureToken: Boolean = true,
+        @Body signInBody: SignInBody
     ) : AuthDto
 
-    @POST("./accounts:signUp")
+    @POST("/v1/accounts:signUp")
     suspend fun signup(
        @Body signupBody: SignupBody
     ): AuthDto

@@ -4,19 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/launchFragment">
-
-    <include app:graph="@navigation/auth_graph" />
     <fragment
         android:id="@+id/launchFragment"
-        android:name="com.example.news.auth.ui.launch.launchFragment"
-        android:label="fragment_launch"
-        tools:layout="@layout/fragment_launch" >
+        android:name="com.example.news.auth.ui.launch.LaunchFragment"
+        tools:layout="@layout/fragment_launch"
+        android:label="LaunchFragment" >
         <action
-            android:id="@+id/action_launchFragment_to_home_graph"
-            app:destination="@id/home_graph" />
-        <action
-            android:id="@+id/action_launchFragment_to_auth_graph"
-            app:destination="@id/auth_graph" />
+            android:id="@+id/action_launchFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
-    <include app:graph="@navigation/home_graph" />
+    <fragment
+        android:id="@+id/loginFragment"
+        tools:layout="@layout/fragment_login"
+        android:name="com.example.news.auth.ui.login.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationFragment"
+        tools:layout="@layout/fragment_registration"
+        android:name="com.example.news.auth.ui.registration.RegistrationFragment"
+        android:label="RegistrationFragment" />
 </navigation>

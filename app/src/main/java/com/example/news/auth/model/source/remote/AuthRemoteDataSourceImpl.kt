@@ -1,5 +1,6 @@
 package com.example.news.auth.model.source.remote
 
+import com.example.news.auth.model.source.remote.body.SignInBody
 import com.example.news.auth.model.source.remote.body.SignupBody
 import com.example.news.auth.model.source.remote.dto.AuthDto
 import kotlinx.coroutines.CoroutineDispatcher
@@ -15,5 +16,9 @@ class AuthRemoteDataSourceImpl(
         signupBody: SignupBody
     ): Flow<AuthDto> = flow {
         emit(webservice.signup(signupBody))
+    }.flowOn(ioDispatcher)
+
+    override fun login(signInBody: SignInBody): Flow<AuthDto> = flow {
+        emit(webservice.login(signInBody))
     }.flowOn(ioDispatcher)
 }
