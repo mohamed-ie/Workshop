@@ -9,6 +9,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.datastore.preferences.preferencesDataStoreFile
+import androidx.room.Room
 import com.example.news.BuildConfig
 import com.example.news.auth.model.repository.AuthRepository
 import com.example.news.auth.model.repository.AuthRepositoryImpl
@@ -17,7 +18,15 @@ import com.example.news.auth.model.source.local.UserDataStoreManagerImpl
 import com.example.news.auth.model.source.remote.AuthRemoteDataSourceImpl
 import com.example.news.auth.model.source.remote.interceptor.AuthInterceptor
 import com.example.news.auth.model.source.remote.AuthWebservice
-import kotlinx.coroutines.CoroutineScope
+import com.example.news.news.model.repository.NewsRepository
+import com.example.news.news.model.repository.NewsRepositoryImpl
+import com.example.news.news.model.source.local.LocalNewsDataSource
+import com.example.news.news.model.source.local.LocalNewsDataSourceImpl
+import com.example.news.news.model.source.local.NewsDatabase
+import com.example.news.news.model.source.remote.NewsRemoteDataSource
+import com.example.news.news.model.source.remote.NewsRemoteDataSourceImpl
+import com.example.news.news.model.source.remote.NewsWebservice
+import com.example.news.news.model.source.remote.interceptor.NewsInterceptor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import okhttp3.OkHttpClient
@@ -58,6 +67,26 @@ class ServiceLocatorImpl(private val context: Context) : ServiceLocator {
         AuthRepositoryImpl(remoteDataSource,localDataSource,Dispatchers.Default)
     }
 
+    override val newsRepository: NewsRepository by lazy {
+        val newsInterceptor = NewsInterceptor(BuildConfig.NEWS_API_KEY)
+        val client = OkHttpClient.Builder()
+            .addNetworkInterceptor(newsInterceptor)
+            .build()
 
+        val newsWebservice :NewsWebservice = retrofitBuilder
+            .client(client)
+            .baseUrl(NewsWebservice.BASE_URL)
+            .build()
+            .create(NewsWebservice::class.java)
 
+        NewsRepositoryImpl(NewsRemoteDataSourceImpl(newsWebservice),LocalNewsDataSourceImpl(newsDatabase.dao))
+    }
+
+    private val newsDatabase: NewsDatabase by lazy {
+        Room.databaseBuilder(
+            context,
+            NewsDatabase::class.java,
+            NewsDatabase.DATABASE_NAME
+        ).build()
+    }
 }
