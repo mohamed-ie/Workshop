@@ -40,12 +40,14 @@ class AuthRepositoryImpl(
             .catch { emit(Resource.Error) }
             .flowOn(defaultDispatcher)
     }
-
     override suspend fun saveUserData(userID: Int, name: String, email: String) {
         authLocalDataSource.saveUserData(UserData(userID, name, email))
     }
-
     override suspend fun logout() {
         authLocalDataSource.resetUserData()
+    }
+
+    override suspend fun getUserData(): Flow<Int?> {
+        return authLocalDataSource.getUserDataStore()
     }
 }

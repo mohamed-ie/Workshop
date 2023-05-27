@@ -9,7 +9,7 @@ interface AuthRepository {
     fun signUp(email:String,  password:String, displayName: String) : Flow<Resource<SignupInfo>>
     suspend fun saveUserData(userID: Int, name:String, email:String)
     suspend fun logout()
-
+    suspend fun getUserData(): Flow<Int?>
 
 
 }

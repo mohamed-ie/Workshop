@@ -10,4 +10,6 @@
     <string name="empty_error">Can\'t be empty</string>
     <string name="email_not_formed_error">must be like (abc@example.com)</string>
     <string name="register_success">Register Success</string>
+    <string name="login">Login</string>
+    <string name="noAccount">Don\'t have account?</string>
 </resources>

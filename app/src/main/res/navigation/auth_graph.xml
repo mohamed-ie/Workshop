@@ -3,11 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/auth_graph"
-    app:startDestination="@id/registrationFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/registrationFragment"
         android:name="com.example.news.auth.ui.registration.RegistrationFragment"
         tools:layout="@layout/fragment_registration"
         android:label="RegistrationFragment" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.news.auth.ui.login.LoginFragment"
+        android:label="LoginFragment" />
 </navigation>
