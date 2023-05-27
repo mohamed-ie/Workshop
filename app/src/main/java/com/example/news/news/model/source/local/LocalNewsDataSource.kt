@@ -5,7 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface LocalNewsDataSource {
     suspend fun saveFavouriteNewArticle(article: Article)
-
     suspend fun deleteFavouriteNewArticle(article: Article)
     fun getCashedArticles(): Flow<List<Article>>
     fun getFavouriteArticles(): Flow<List<Article>>
