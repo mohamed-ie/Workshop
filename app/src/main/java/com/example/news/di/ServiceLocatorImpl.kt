@@ -14,6 +14,7 @@ import com.example.news.auth.model.repository.AuthRepository
 import com.example.news.auth.model.repository.AuthRepositoryImpl
 import com.example.news.auth.model.source.local.AuthLocalDataSourceImpl
 import com.example.news.auth.model.source.local.UserDataStoreManagerImpl
+import com.example.news.auth.model.source.remote.AuthRemoteDataSourceImpl
 import com.example.news.auth.model.source.remote.interceptor.AuthInterceptor
 import com.example.news.auth.model.source.remote.AuthWebservice
 import kotlinx.coroutines.CoroutineScope
@@ -52,7 +53,9 @@ class ServiceLocatorImpl(private val context: Context) : ServiceLocator {
             .create(AuthWebservice::class.java)
 
 
-        AuthRepositoryImpl(authWebservice,AuthLocalDataSourceImpl(UserDataStoreManagerImpl(dataStore = context.dataStore)))
+        val remoteDataSource = AuthRemoteDataSourceImpl(authWebservice, Dispatchers.IO)
+        val localDataSource = AuthLocalDataSourceImpl(dataStoreManager = UserDataStoreManagerImpl(context.dataStore))
+        AuthRepositoryImpl(remoteDataSource,localDataSource,Dispatchers.Default)
     }
 
 
