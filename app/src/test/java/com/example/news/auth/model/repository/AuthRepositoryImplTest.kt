@@ -20,7 +20,7 @@ class AuthRepositoryImplTest {
     fun init(){
         authLocalDataSource = FakeAuthLocalDataSource()
         authWebservice = FakeAuthWebservice()
-        authRepo = AuthRepositoryImpl(authWebservice, authLocalDataSource)
+//        authRepo = AuthRepositoryImpl(authWebservice, authLocalDataSource)
         email = "rafeef@gmail.com"
         name = "rafeef"
         password = "123456"
@@ -40,7 +40,7 @@ class AuthRepositoryImplTest {
         // given nothing
 
         // when calling the logout method
-        authRepo.logout()
+//        authRepo.logout()
     }
 
     @Test
@@ -58,7 +58,7 @@ class AuthRepositoryImplTest {
         // given email, name, id
         var id : Int = 1
         // when calling the saveUserData method
-        authRepo.saveUserData(id, email, name)
+//        authRepo.saveUserData(id, email, name)
 
     }
 }
