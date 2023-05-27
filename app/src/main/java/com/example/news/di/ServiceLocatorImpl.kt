@@ -9,6 +9,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.datastore.preferences.preferencesDataStoreFile
+import androidx.room.Room
 import com.example.news.BuildConfig
 import com.example.news.auth.model.repository.AuthRepository
 import com.example.news.auth.model.repository.AuthRepositoryImpl
@@ -20,6 +21,7 @@ import com.example.news.auth.model.source.remote.AuthWebservice
 import com.example.news.auth.model.source.remote.interceptor.AuthInterceptor
 import com.example.news.news.model.repository.NewsRepository
 import com.example.news.news.model.repository.NewsRepositoryImpl
+import com.example.news.news.model.source.local.NewsDatabase
 import com.example.news.news.model.source.remote.NewsWebservice
 import com.example.news.news.model.source.remote.interceptor.NewsInterceptor
 import kotlinx.coroutines.Dispatchers
