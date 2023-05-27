@@ -32,7 +32,7 @@ class UserDataStoreManagerImpl(private val dataStore: DataStore<Preferences>) : 
 }
 
 data class UserData(
-    val userID: Int?,
-    val name:String?,
-    val email:String?
+    val userID: Int? = null,
+    val name:String? = null,
+    val email:String? = null
 )
