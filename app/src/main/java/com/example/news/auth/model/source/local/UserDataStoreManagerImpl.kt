@@ -8,7 +8,8 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import com.example.news.helpers.DataStoreKeys
 import kotlinx.coroutines.flow.map
 
-class UserDataStoreManagerImpl(private val dataStore: DataStore<Preferences>) : UserDataStoreManager{
+class UserDataStoreManagerImpl(private val dataStore: DataStore<Preferences>) :
+    UserDataStoreManager {
 
     override suspend fun saveUserData(userData: UserData) {
         dataStore.edit {
@@ -29,10 +30,12 @@ class UserDataStoreManagerImpl(private val dataStore: DataStore<Preferences>) : 
     override suspend fun getUserDataStore() = dataStore.data.map {
         it[intPreferencesKey(DataStoreKeys.ID)]
     }
+
+
 }
 
 data class UserData(
     val userID: Int?,
-    val name:String?,
-    val email:String?
+    val name: String?,
+    val email: String?
 )
