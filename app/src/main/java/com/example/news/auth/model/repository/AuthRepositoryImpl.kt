@@ -5,6 +5,7 @@ import com.example.news.auth.model.source.local.UserData
 import com.example.news.auth.model.source.local.model.SignupInfo
 import com.example.news.auth.model.source.remote.AuthRemoteDataSource
 import com.example.news.auth.model.source.remote.AuthWebservice
+import com.example.news.auth.model.source.remote.body.SignInBody
 import com.example.news.auth.model.source.remote.body.SignupBody
 import com.example.news.helpers.Resource
 import kotlinx.coroutines.CoroutineDispatcher
@@ -18,8 +19,18 @@ class AuthRepositoryImpl(
     private val authLocalDataSource: AuthLocalDataSource,
     private val defaultDispatcher: CoroutineDispatcher
 ) : AuthRepository {
-    override suspend fun login(email: String, password: String) {
-//        authWebservice.login(email, password)
+    override fun login(email: String, password: String):Flow<Resource<SignupInfo>> {
+        return remoteDataSource.login(SignInBody(email, password))
+            .map { dto ->
+                val info = SignupInfo(
+                    email = dto.email,
+                    error = dto.error?.message,
+                    success = dto.email != null
+                )
+                Resource.Success(info) as Resource<SignupInfo>
+            }
+            .catch { emit(Resource.Error) }
+            .flowOn(defaultDispatcher)
     }
 
     override fun signUp(

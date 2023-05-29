@@ -35,13 +35,13 @@ class LaunchFragment : BaseFragment<FragmentLaunchBinding,LaunchViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lifecycleScope.launch(Dispatchers.Default) {
-            if (!viewModel.checkIfUserLogged()) {
+        lifecycleScope.launch {
+            if (viewModel.checkIfUserLogged()) {
                 //true
-                //navController.navigate(R.id.action_launchFragment_to_home_graph)
+                //navController.navigate(R.id.action_launchFragment2_to_loginFragment2)
             } else {
                 //false
-                //navController.navigate(R.id.action_launchFragment_to_auth_graph)
+                navController.navigate(R.id.action_launchFragment_to_loginFragment)
             }
         }
 

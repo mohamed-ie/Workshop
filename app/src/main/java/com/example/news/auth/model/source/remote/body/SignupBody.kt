@@ -6,3 +6,9 @@ data class SignupBody(
     val displayName: String,
     val returnSecureToken: Boolean = true
 )
+
+data class SignInBody(
+    val email: String,
+    val password: String,
+    val returnSecureToken: Boolean = true
+)
